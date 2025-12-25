@@ -74,3 +74,32 @@ and get_fiscal_quarter(date)="Q4"
 order by date desc;
 
 
+
+
+-- Next Problem:
+-- Gross Sales report, monthly sales amount
+SELECT
+	s.date, sum(g.gross_price*s.sold_quantity) as gross_price_total
+	FROM fact_sales_monthly s 
+join fact_gross_price g
+ON
+	g.product_code=s.product_code and
+	g.fiscal_year=get_fiscal_year(s.date)
+WHERE customer_code=90002002
+group by s.date
+order by s.date asc;
+
+
+-- Yearly Sales report
+	select
+            get_fiscal_year(date) as fiscal_year,
+            sum(round(sold_quantity*g.gross_price,2)) as yearly_sales
+	from fact_sales_monthly s
+	join fact_gross_price g
+	on 
+	    g.fiscal_year=get_fiscal_year(s.date) and
+	    g.product_code=s.product_code
+	where
+	    customer_code=90002002
+	group by get_fiscal_year(date)
+	order by fiscal_year;

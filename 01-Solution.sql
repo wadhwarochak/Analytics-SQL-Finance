@@ -103,3 +103,8 @@ order by s.date asc;
 	    customer_code=90002002
 	group by get_fiscal_year(date)
 	order by fiscal_year;
+	
+
+
+-- Calling a Stored Procedure
+call gdb0041.get_monthly_gross_sales_for_customer(90002002);
